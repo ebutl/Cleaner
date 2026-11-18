@@ -20,12 +20,14 @@ DEFAULT_LIMIT = int(os.getenv("DEFAULT_LIMIT", "10000"))
 ADMIN_LIMIT   = int(os.getenv("ADMIN_LIMIT",   "50000"))
 
 # ── User client session ───────────────────────────────────────────────────────
-# Generate this once via gen_session.py, then set it as SESSION_STRING in Render.
-SESSION_STRING = os.getenv("SESSION_STRING", "").strip()
+# Env var wins. Falls back to the baked-in string below.
+SESSION_STRING = os.getenv(
+    "SESSION_STRING",
+    "BQHYPpgApjyhycJyCVz1DaOcgCaSjJGI3xVmmV81sZo_cVH7gcDIYtNNYcKvlciWndfuVBNY2owmZu2qQIgDRpLZjp0SprP0V5lFwrTIW1_k6GXTS-VA53oTyz8c4rewzNoYLmmkwbdJ2p-lFGFrK45Ue4iqaiPTyDfuYrVet_vDRzDwDyPfoDviv8rNdn-b_esV-uAeUeBynukxynDs3gloiSl-U6oE6xN3-v7xOkh4PJmai5lQBA0xMT3_mID261rNPS4YM0w4CjzSTBZbu_CBbopctmdNwKN2vOYRXwSnc_eNCBl2Pe8zck2r7HKxxyDovo5Wa-gF9tEWaVaL_lxAlKUL7QAAAAInM3zeAQ",
+).strip()
+
 if not SESSION_STRING:
     raise SystemExit(
-        "\n[FATAL] SESSION_STRING env var is missing.\n"
-        "  1. Run `python gen_session.py` locally (phone + code + 2FA if set).\n"
-        "  2. Copy the printed string into Render -> Environment -> SESSION_STRING.\n"
-        "  3. Redeploy.\n"
+        "\n[FATAL] SESSION_STRING is empty. "
+        "Set it in Render env vars or bake it into config.py.\n"
     )
