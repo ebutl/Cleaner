@@ -1,0 +1,20 @@
+services:
+  - type: worker                 # background worker, no HTTP port needed
+    name: scrix-bot
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: standard               # 12 CPU / 96 GB → pick "pro" or "pro plus" on Render
+    autoDeploy: true
+    envVars:
+      - key: API_ID
+        sync: false              # fill in Render dashboard
+      - key: API_HASH
+        sync: false
+      - key: BOT_TOKEN
+        sync: false
+      - key: OWNER_ID
+        sync: false
+    disk:
+      name: sessions
+      mountPath: /app
+      sizeGB: 1                  # persists Pyrogram session files between deploys
