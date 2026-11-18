@@ -7,14 +7,22 @@ services:
     autoDeploy: true
     envVars:
       - key: API_ID
-        sync: false              # fill in Render dashboard
+        sync: false
       - key: API_HASH
         sync: false
       - key: BOT_TOKEN
         sync: false
       - key: OWNER_ID
         sync: false
+      - key: ADMIN_IDS
+        sync: false              # comma-separated, e.g. 8919487892,123456
+      - key: DEFAULT_LIMIT
+        value: "10000"
+      - key: ADMIN_LIMIT
+        value: "50000"
+      - key: SESSION_STRING
+        sync: false              # optional — config.py has a baked-in fallback
     disk:
       name: sessions
       mountPath: /app
-      sizeGB: 1                  # persists Pyrogram session files between deploys
+      sizeGB: 1                  # persists channels.json between deploys
